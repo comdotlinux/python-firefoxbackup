@@ -1,7 +1,7 @@
 python-firefoxbackup
 ====================
 
-Automating backups of Firefox using MozBackup and Python 3 with out using third party modules to keep the usage simple.
+Automating backups of Firefox using MozBackup and Python 3 without using third party modules to keep the usage simple.
 
 This is for use only on windows, where in Corporate environments the OS is primararily windows.
 I use Firefox and it's Sync extensively and like to have plenty of backups in case of disaster.
