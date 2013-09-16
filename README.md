@@ -11,6 +11,6 @@ Usage is simple, You Need :
 2. Python 3 from http://www.python.org/
 3. This python script.
 
-Just modify MozBackup.properties a use windows scheduler to backup firefox at specific time by running this script.
+Just modify MozillaBackup.properties a use windows scheduler to backup firefox at specific time by running this script.
 
 Please do let me know any Improvements, I am fairly new to Python.
