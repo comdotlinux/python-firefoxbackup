@@ -29,7 +29,7 @@ LEVELS = { 'debug':logging.DEBUG,
 if len(sys.argv) > 1:
     level_name = sys.argv[1]
 else:
-    level_name = 'debug'
+    level_name = 'warning'
 
 FORMAT = '%(asctime)-15s : %(message)s'
 level = LEVELS.get(level_name, logging.NOTSET)
@@ -48,10 +48,12 @@ try:
     firefox_profile = parser['Mozilla Firefox Backup']['FIREFOX_PROFILE']
     moz_backup_executable = parser['Mozilla Firefox Backup']['MOZBACKUP_EXE_PATH']
     backup_dest = parser['Mozilla Firefox Backup']['BACKUP_DEST_DIR']
-except configparser.Error as err:
-    print("Error while parsing details are : " + str(err))
-except IOError as err:
-    print("Error while parsing details are : " + str(err))
+except (configparser.Error, IOError) as err:
+    exception_info = "Cannot parse property file. Details are : " + str(err)
+    log.error(excpetion_info)
+    sys.exit(excpetion_info)
+    
+
 log.debug("Reading properties file -- Ends")
 
 log.debug("Splitting path -- Starts")
@@ -60,6 +62,7 @@ log.debug("moz_backup_executable as retrieved = " + moz_backup_executable)
 
 (firefox_path, firefox_exe) = os.path.split(firefox_executable)
 (moz_backup_path, moz_backup_exe) = os.path.split(moz_backup_executable)
+
 log.debug("After Splitting : ")
 log.debug("firefox_path = " + firefox_path)
 log.debug("firefox_exe = " + firefox_exe)
@@ -78,8 +81,9 @@ try:
 
 except (subprocess.SubprocessError, IOError) as err:
     exception_info = "Error while getting Firefox version : " + str(err)
-    log.error(exception_info)
-    print(exception_info)
+    log.warning(exception_info)
+    log.warning("Setting firefox_version as blank")
+    firefox_version = ' '
 
 log.debug("Get Firefox version -- Ends")
 
